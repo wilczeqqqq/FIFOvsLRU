@@ -2,18 +2,18 @@
 using System;
 
 /*
- * nazwa: FIFOvsLRU - porównanie dwóch algorytmów wymiany stron na 100 zbiorach po 100 stron
+ * nazwa: FIFOvsLRU - testowanie algorytmów wymiany stron na 100 zbiorach po 100 stron
  * autor: Filip Dowhan 259683
- * wersja: 1.0 - 09.01.2022
+ * wersja: 1.1 - 23.01.2022
  */
 
 class Symulacja
 {
-    Queue<Strona> ramkaFIFO = new();
-    List<Strona> ramkaLRU = new();
-    Dictionary<int, int> indeksy = new Dictionary<int, int>();
+    Queue<Strona> ramkaFIFO = new(); // symuluje ramkę dla algorytmu FIFO w postaci kolejki //
+    List<Strona> ramkaLRU = new(); // symuluje ramkę dla algorutmu LRU w postaci listy //
+    Dictionary<int, int> indeksy = new Dictionary<int, int>(); // przechowuje indeksy potrzebne do prawidłowego działania algorytmu LRU //
 
-    List<Strona> strony = new();
+    List<Strona> strony = new(); // przechowuje obiekty stron wymagane do testowania //
 
     /* FUNKCJA SŁUŻĄCA DO WYGENEROWANIA PLIKÓW Z DANYMI PROCESÓW (unused,devtool)
      * 
@@ -33,7 +33,7 @@ class Symulacja
     }
      */
 
-    private void dodajStrony(int x)
+    private void dodajStrony(int x) // dodaje strony do List<Strona> strony z plików 1 - 100.txt z danymi w formacie "nr_strony" //
     {
         strony.Clear();
 
@@ -47,7 +47,7 @@ class Symulacja
         }
     }
 
-    private void FIFO(int rozmiar, int iter)
+    private void FIFO(int rozmiar, int iter) // algorytm FIFO //
     {
         int PF = 0;
         bool check;
@@ -88,7 +88,7 @@ class Symulacja
         Console.WriteLine("[FIFO][" + iter + "][rozmiar ramki: " + rozmiar + "] : " + PF);
     }
 
-    private void LRU(int rozmiar, int iter) //FINALLY WORKING !!!
+    private void LRU(int rozmiar, int iter) // algorytm LRU //
     {
         int PF = 0;
         bool check;
@@ -184,7 +184,7 @@ class Symulacja
             rozmiarRamki = 3;
             symulacja.dodajStrony(i);
 
-            while (rozmiarRamki != 9)
+            while (rozmiarRamki != 9) // testowanie na rozmiarach ramek 3, 5, 7 //
             {
                 symulacja.FIFO(rozmiarRamki, i);
                 symulacja.LRU(rozmiarRamki, i);
@@ -192,5 +192,7 @@ class Symulacja
             }
             Console.WriteLine("\n");
         }
+        Console.WriteLine("Wciśnij dowolny klawisz, by wyjść...");
+        Console.ReadLine();
     }
 }

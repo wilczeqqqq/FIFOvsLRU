@@ -8,7 +8,7 @@ namespace FIFOalpha
 {
     internal class Strona
     {
-        private int _numer;
+        private int _numer; // Numer strony
 
         public Strona(int numer)
         {
